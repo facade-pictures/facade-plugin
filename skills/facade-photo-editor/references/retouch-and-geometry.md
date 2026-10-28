@@ -14,6 +14,7 @@ content; leaving an intentional feature alone is a valid result.
 |---|---|---|
 | Unwanted small texture defect inside a continuous surface | `heal` with a compatible donor and clean boundary | Material, grain and surrounding gradients |
 | A line, seam or pattern needs exact continuation | `clone`, aligned to structure | Repeated pattern, seams, light/color mismatch |
+| Thin unwanted wires against a continuous background | Discover `wire_repair`; group neighboring paths in one edit | Intact gaps, cloud/edge continuation and texture along the whole feather |
 | Texture is intact; a light/dark patch disrupts the desired tone | Soft masked exposure/curves (dodge & burn) | Preserve form and natural large light transitions |
 | Tone/texture are intact; local color is unwanted | Local color correction | Read [light and materials](photographic-finish.md); avoid replacing good texture |
 | Red flash reflex in a pupil | `red_eye` | Iris, catchlight, eyelid and glasses |
@@ -57,7 +58,7 @@ Examples are conditional:
 
 ## Inspect once, apply a batch, review together
 
-Read `facade_capabilities(path="topics/retouch")` or `facade_capabilities(path="topics/geometry")` when you need that stage's exact schema. These are document stages in `patch`, not IDs in `upsertEdits`. Reuse a schema already available in context.
+Read `facade_capabilities(path="topics/retouch")` or `facade_capabilities(path="topics/geometry")` when you need that stage's exact schema. Clone/heal rounds and geometry are document stages in `patch`; the optional `wire_repair` operation below uses `upsertEdits`. Reuse a schema already available in context.
 
 `facade_inspect(project, revisions, regions)` accepts 1..12 regions `{id, box:[left,top,right,bottom]}` in native oriented-source pixels. It returns one contact sheet per revision and a `frame` for each region. These views show the photographic grade and retouch **before geometry**. Labels identify each crop; points are normalized within that crop, never relative to the contact sheet.
 
@@ -119,7 +120,47 @@ Clone items use `kind:clone`, `target`, `source`, `radius`, optional `sourceRadi
 
 Heal uses the same donor controls with `kind:heal`. It preserves donor texture gradients and matches the target's surrounding tone/color with a boundary-based solve. `healSpace` defaults to `"linear"`, preserving existing recipes. Optional `"srgb"` solves encoded-sRGB gradients and boundary correction before blending in linear light; compare it when tone/grain matching is poor, without assuming it is better. Feather blends coverage once. Maximum radius on either axis is 128 native pixels. Circular/elliptical target coverage needs a one-pixel boundary inside the source; stroke edge behavior is described below. Invalid donors or oversized repairs fail explicitly. Use smaller patches only when each has a suitable donor/boundary, or choose clone when its behavior is appropriate; the size limit is not a reason to tile an unsuitable repair.
 
-## Repair a wire or scratch one short piece at a time
+## Thin wires with background reconstruction
+
+Check `facade_capabilities(operations=["wire_repair"])` when available in the
+retouch topic. This conventional operation uses explicit paths, safe nearby
+texture and a smooth background constrained by untouched gaps. It is not an
+automatic detector or a generative patch. Use ordinary `facade_edit` requests;
+do not recreate its algorithm in a per-photo script. Older runtimes without it
+retain the donor-based stroke workflow below.
+
+`wire_repair` belongs in `patch.upsertEdits`, with `operationVersion:1`.
+Group adjacent wires, crossings and attachment loops into one `paths` list so
+they cannot donate to one another. Points are normalized to the full oriented
+source, **not a crop frame**. `radiusPx` is the full-opacity half-width in native
+pixels; `featherPx` is an additional width outside it. These units differ from
+clone/heal radius and feather. The whole object must fit inside that footprint.
+`excludePaths` marks other defects as unsafe background/donors without painting
+them. Do not mark an intact gap as a defect just because it is narrow.
+
+Place the operation before bloom, sharpening and added grain with `patch.order`
+(which must list every resulting edit ID). This keeps object halos from entering
+the repair and replays those effects afterward. The explicit order is persisted;
+the tool does not silently rearrange existing edits. Default full opacity is
+appropriate for removal; partial opacity or an extra soft mask can restore wire
+remnants. Keep ordinary source-space masks only when their restriction is wanted.
+
+Inspect source-native regions, then compare the same crops and the whole frame.
+Use `crops`, `review_regions` or `facade_inspect(regions=...)`; `review_retouch`
+IDs belong to clone/heal rounds and do not identify this stack operation.
+Check both the center and the entire feather for residual dark lines, bright
+seams, cloud loss, repeated detail and weak texture. A metric or successful call
+is not a clean verdict. Distinguish remaining object, wrong background and wrong
+texture before applying another repair; do not keep widening the footprint.
+
+Read region is bounded to 4 MP and written coverage to 250,000 native pixels.
+Large requests fail explicitly, without downsampling. Smaller groups must still
+exclude nearby unrepaired objects. Evidence is limited to a controlled sky
+experiment; unpainted pixels can still contain object halos, and structured
+backgrounds may require aligned clone or another approach. PSD keeps this
+operation baked in Processed; its recipe remains editable in Façade.
+
+## Donor-based wire or scratch repair
 
 Use normal Façade requests for this loop; do not create photo-specific Python
 scripts or raster masks for a path that `stroke` can express. Clone/heal accept
