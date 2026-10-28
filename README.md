@@ -1,6 +1,6 @@
 # Façade agent plugin
 
-Local development source for the thin Façade integration. This repository owns
+Development source for the thin Façade integration. This repository owns
 shared photographic skills, host presentation instructions and the package
 builder. The separate Façade application, renderer, project implementation,
 models and MCP server are not included.
@@ -29,8 +29,8 @@ a verified local executable. Do not register the root source as a second
 Façade plugin alongside an installed app-generated package.
 
 See [installation](docs/installation.md), [compatibility](docs/compatibility.md)
-and [license status](LICENSE-STATUS.md). This repository has not been published
-or granted an open-source license yet. Official product information:
+and [license status](LICENSE-STATUS.md). This source repository is public;
+an open-source license has not yet been granted. Official product information:
 [facade.pictures](https://facade.pictures).
 
 ## Development
