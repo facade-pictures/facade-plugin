@@ -12,7 +12,8 @@ import shlex
 # relative command from the workspace and does not apply cwd ${CURSOR_PLUGIN_ROOT}.
 # 5: public homepage and Codex listing website metadata.
 # 6: standalone thin-layer package, shared setup skill and installation docs.
-PACKAGE_FORMAT_VERSION = 6
+# 7: carry the MIT license with every generated host package.
+PACKAGE_FORMAT_VERSION = 7
 PLUGIN_WEBSITE = "https://facade.pictures"
 PLUGIN_ICON = "./skills/facade-photo-editor/assets/facade.png"
 
@@ -47,7 +48,7 @@ def generate_plugins(executable: Path, output: Path, *, version: str, installed_
     output.mkdir(parents=True, exist_ok=False)
     identity = {"name": "facade-photo-editor", "version": version,
                 "description": "Persistent local photo editing with previews, masks and PSD export.",
-                "author": {"name": "Façade"}, "homepage": PLUGIN_WEBSITE}
+                "author": {"name": "Façade"}, "homepage": PLUGIN_WEBSITE, "license": "MIT"}
     mcp = {"mcpServers": {"facade": {"command": str(executable), "args": ["mcp"]}}}
     environment = {"FACADE_LIBRARY": str(library.resolve())} if library is not None else {}
     if environment:
@@ -56,6 +57,7 @@ def generate_plugins(executable: Path, output: Path, *, version: str, installed_
         folder = output / host
         shutil.copytree(skills, folder / "skills")
         shutil.copytree(root / "docs", folder / "docs")
+        shutil.copy2(root / "LICENSE", folder / "LICENSE")
         manifest = dict(identity)
         if host == "codex":
             # Portable Agent Plugins rejects absolute command paths. Ship a

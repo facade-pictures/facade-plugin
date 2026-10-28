@@ -15,6 +15,7 @@ class PackageTests(unittest.TestCase):
             root = Path(temporary).resolve()
             module = root / 'facade_plugin'
             module.mkdir()
+            shutil.copy2(asset_root() / 'LICENSE', module / 'LICENSE')
             shutil.copy2(asset_root() / 'facade_plugin/__init__.py', module / '__init__.py')
             for name in ('skills', 'hosts', 'docs'):
                 shutil.copytree(asset_root() / name, module / name)
@@ -34,6 +35,9 @@ assert not any(name.startswith('facade_processing') for name in sys.modules)
                            check=True, capture_output=True, text=True)
             for host in ('codex', 'cursor', 'claude'):
                 package = root / 'packages' / host
+                self.assertEqual((package / 'LICENSE').read_bytes(), (asset_root() / 'LICENSE').read_bytes())
+                manifest = json.loads((package / f'.{host}-plugin/plugin.json').read_text())
+                self.assertEqual(manifest['license'], 'MIT')
                 self.assertTrue((package / 'skills/facade-setup/SKILL.md').is_file())
                 self.assertTrue((package / 'docs/installation.md').is_file())
                 self.assertEqual((package / 'skills/facade-photo-editor/host.md').read_bytes(),

@@ -1,8 +1,10 @@
 [project]
 name = "facade-agent-plugin"
-version = "0.1.0"
+version = "0.1.1"
 description = "Thin agent plugin packaging and shared photographic skills for Façade"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.12"
 dependencies = []
 
@@ -17,6 +19,7 @@ packages = ["facade_plugin"]
 "skills" = "facade_plugin/skills"
 "hosts" = "facade_plugin/hosts"
 "docs" = "facade_plugin/docs"
+"LICENSE" = "facade_plugin/LICENSE"
 
 [tool.hatch.build.targets.sdist]
-include = ["facade_plugin", "skills", "hosts", "docs", "tests", "plugin.json", "pyproject.toml", "README.md", "LICENSE-STATUS.md"]
+include = ["facade_plugin", "skills", "hosts", "docs", "tests", "plugin.json", "pyproject.toml", "README.md", "LICENSE", "AGENTS.md"]

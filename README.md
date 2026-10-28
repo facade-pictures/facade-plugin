@@ -9,4 +9,4 @@ There is no public DMG download or standalone plugin release yet.
 
 **[See the project and demos at facade.pictures →](https://facade.pictures)**
 
-[License status](LICENSE-STATUS.md)
+[MIT License](LICENSE)
