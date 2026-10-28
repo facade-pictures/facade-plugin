@@ -1,0 +1,20 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "facade-photo-editor",
+  "version": "0.1.0",
+  "description": "Shared photographic skills and thin host packaging for the separate local Façade backend.",
+  "author": {
+    "name": "Façade"
+  },
+  "homepage": "https://facade.pictures",
+  "extensions": {
+    "com.openai": {
+      "requires_local_executor": true,
+      "interface": {
+        "displayName": "Façade Photo Editor",
+        "shortDescription": "Edit photos with your agent",
+        "websiteURL": "https://facade.pictures"
+      }
+    }
+  }
+}

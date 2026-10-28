@@ -1,0 +1,8 @@
+interface:
+  display_name: "Façade Photo Editor"
+  short_description: "Polish photos and resume saved edits with Façade"
+  icon_small: "./assets/facade.png"
+  icon_large: "./assets/facade.png"
+  default_prompt: "Use $facade-photo-editor to open my photo project, inspect the image and refine its color and contrast."
+policy:
+  allow_implicit_invocation: true

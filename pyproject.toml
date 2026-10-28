@@ -1,0 +1,22 @@
+[project]
+name = "facade-agent-plugin"
+version = "0.1.0"
+description = "Thin agent plugin packaging and shared photographic skills for Façade"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["facade_plugin"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"skills" = "facade_plugin/skills"
+"hosts" = "facade_plugin/hosts"
+"docs" = "facade_plugin/docs"
+
+[tool.hatch.build.targets.sdist]
+include = ["facade_plugin", "skills", "hosts", "docs", "tests", "plugin.json", "pyproject.toml", "README.md", "LICENSE-STATUS.md"]
