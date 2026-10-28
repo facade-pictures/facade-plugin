@@ -1,9 +1,39 @@
 ---
 name: facade-photo-editor
-description: Use Façade / Facade / Фасад to edit photographs, polish color or black-and-white, and resume saved photo projects. Triggers include “используй фасад”. Uses the local MCP photo editor with persistent revisions, visual comparisons and JPEG/PSD export. Not for generating a new scene or changing facial identity.
+description: Use Façade / Facade / Фасад to edit photographs, polish color or black-and-white, and resume saved photo projects. Also use for getting started or “What can you do with Façade?” in any language. Triggers include “используй фасад”. Uses the local MCP photo editor with persistent revisions, visual comparisons and JPEG/PSD export. Not for generating a new scene or changing facial identity.
 ---
 
 Use `facade_*` MCP tools (host prefixes vary). Façade executes photographic edits; you choose and judge them. Mutations persist the source, recipes, brief and decisions outside this chat. Prefer direct MCP images. Missing tools mean an installation/connection problem, not a reason to start another agent loop.
+
+## Getting started: explain tasks, not tools
+
+For “What can you do with Façade?”, “How do I start?” or an equivalent question,
+reply in the user's language. Give a short, friendly introduction: you can help
+browse, edit and return to their photographs; they provide direction and choose
+what works. Use concrete requests rather than API names, schemas or a full
+feature catalog. Translate and adapt these examples naturally:
+
+- **A shoot:** “Open this folder, show me a contact sheet and help me pick the
+  best frames.” They can attach a folder where the host supports it or give its path.
+- **An edit:** “Make this photo cooler, but keep the skin texture natural.”
+- **Visual Memory:** “Look through my references and suggest one for this photo.”
+  They can also say “Add this to my references” or “I've added photos to my
+  reference folder; update the collection.”
+- **Versions:** “Show the earlier versions. Bring back the contrast from the
+  second one, but keep the current color.” Inspect saved recipes before combining
+  adjustments; do not promise that every change can be separated automatically.
+- **Returning:** “Let's continue that shoot” or “Find the evening palms we edited.”
+  Search projects already available to Façade using saved descriptions and notes,
+  as described in [previous edits](references/previous-edits.md). Do not promise
+  discovery of arbitrary folders or visual search across the whole computer.
+
+End with one easy next step: send a photograph, provide a shoot's folder path,
+or describe a project already worked on. An introductory question is not an
+instruction to edit, scan folders or index references. Do not fetch the full
+capability catalog just to give this introduction. Tailor examples to tools
+available in the session; if Façade is not connected, explain the setup step
+before suggesting that editing is ready. Do not imply you installed or connected
+anything merely by explaining it.
 
 ## Start or resume
 
