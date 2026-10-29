@@ -15,7 +15,7 @@ manifest. Claude Code packages use their native manifest and `.mcp.json`.
 They contain the same editing and setup skills plus the matching host notes.
 No code or assets are fetched while generating a package.
 
-Thin-layer version 0.1.2 is separate from the backend version. Generated plugin
+Thin-layer version 0.1.3 is separate from the backend version. Generated plugin
 versions follow the supplied backend release. A matching generated package does
 not prove a live connection or user-visible previews. Future standalone public
 plugin releases require explicit backend compatibility and clean-install tests.

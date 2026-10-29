@@ -63,6 +63,9 @@ The current request comes first. Use photographic judgment to decide whether sav
 
 Read only the modules needed for the decision:
 
+For experimental Shadows/Highlights, Match Color, Quick Selection or fringe RGB cleanup,
+read [native photo tools](references/native-photo-tools.md) after checking backend capabilities.
+
 - [Measurements and probes](references/color-and-measurements.md): uncertain causes, sample selection, comparable revisions, RAW/RGB limits and interpreting changes.
 - [Light, materials and finish](references/photographic-finish.md): mixed illumination, skin, palette, selective color, tonal construction and black-and-white.
 - [Local retouch and framing](references/retouch-and-geometry.md): defects versus texture/tone/color, donor selection, batched repairs, noise and geometry.
