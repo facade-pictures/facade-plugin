@@ -28,8 +28,10 @@ host package. No live host installation is required to test package generation.
 Run `python -m unittest discover -s tests` from this repository with Python 3.12+
 and this package installed (editable is fine). For packaging changes, also build
 and inspect the wheel; in the containing application use its focused packaging
-tests. Package version and source manifests move together; generated host plugin
-versions come from the supplied backend version. Bump PACKAGE_FORMAT_VERSION
+tests. By owner decision (29 October 2026), the thin package, source manifests
+and application share one release version. Bump them together even when only
+one repository changes; coordinate the matching application dependency/lockfile.
+Generated host plugin versions come from that same backend version. Bump PACKAGE_FORMAT_VERSION
 when generated package structure changes and coordinate the parent's dependency.
 
 Before publishing any new photographs or third-party assets, establish permission
