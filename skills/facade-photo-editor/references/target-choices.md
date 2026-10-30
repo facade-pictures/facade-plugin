@@ -64,3 +64,16 @@ Review actual photographic pixels and completeness before finishing. Fixed
 support solves coordinate transfer, not correctness of detection or taste.
 Applied masks/retouch recipes persist in ordinary project history and exports;
 the local discovery cache can be regenerated and is not required for rendering.
+
+## Experimental pupil choices
+
+When the backend advertises `pupils` and its local Vision helper is configured,
+`pupils(project)` shows every detected eye region and the proposed pupil IDs.
+Use `action=apply, ticket, ids, comment` to add correction only inside the chosen frozen support. Existing eye repairs,
+other retouch and the grade stay unchanged. Proposals are derived from the original
+source; inspect the current pixels to decide whether a correction is still needed. The returned ticket binds the new candidate; after inspecting all
+eyes and the whole frame, `action=finish, ticket, output, comment` accepts it.
+Do not pass coordinates, versions or revisions. Changed state rejects stale
+tickets rather than silently rebasing. No proposal is not proof of a clean eye;
+decline if anatomy or coverage is wrong. This prototype requires identity
+input optics. No helper is downloaded.
