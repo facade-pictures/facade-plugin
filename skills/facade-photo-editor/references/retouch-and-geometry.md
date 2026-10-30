@@ -114,6 +114,13 @@ revision and use the returned project `version` for the next patch. For a donor
 outside the target crop, use canonical coordinates or inspect a larger region.
 Color measurements remain in the `regions` mode; retouch review omits them.
 
+For uncertainty about a saved red-eye target, `retouch.geometry:true` adds a
+separate view of the saved ID, center and search circle (at most four IDs).
+Ordinary crops remain available for judging the photograph. The circle is the
+operator's search area, not the selected red component or a detected pupil;
+check its location against the plain crop. This is optional, not another
+required review step; unsaved target proposals are not supported by this view.
+
 Red-eye searches for a red-dominant connected component near the point. It preserves non-red catchlights and reports `no_red_reflex` when nothing suitable is found. It is not face detection or proof of correct targeting. Inspect eyes at useful scale, including adjacent iris/eyelid/glasses.
 
 Clone items use `kind:clone`, `target`, `source`, `radius`, optional `sourceRadius`, `rotation`, `feather` and `opacity`. With no frame, points are normalized to the oriented original and radius is a fraction of its short edge. With a frame, both points refer to the same crop and radius to that crop's short edge. Use a larger crop or canonical coordinates when the donor is elsewhere. Optional `radiusY` makes an ellipse (same units as `radius`); `angle` rotates that ellipse clockwise. `rotation` separately rotates donor texture; `sourceRadius/radius` is an isotropic donor scale, not an independent donor Y radius. Both heal radii must be <=128 native pixels. Red-eye retains its circular search area. Feather softens coverage, not donor texture. Clone does not harmonize mismatched light/color; choose a suitable donor. Donor support outside the image fails before saving.
@@ -210,6 +217,8 @@ stop expanding patches when the donor or missing structure is unsuitable.
 ## Batch and revision semantics
 
 Items in one submitted batch sample the same immutable batch input, after photographic corrections and earlier batches. One item cannot accidentally sample another item's newly painted pixels. Later batches may sample earlier repairs. Changing an upstream grade recomputes retouch from that grade; this is deterministic sampling, not a frozen JPEG donor.
+
+If a repair is misplaced, change or remove that existing ID instead of keeping it and adding another correction. A new ID is for a genuine residual defect after a correctly placed repair.
 
 Stable item IDs are global within a revision: `upsert` replaces an existing item in its original batch, `remove` deletes named items. Unmentioned items survive. A new `roundId` starts a visible round; adding a sixth consolidates the oldest two, keeping their internal batches and IDs. State gives compact counts; `state(revision=...)` returns item recipes when needed. The five-round limit does not cap undo history or flatten originals. There is no automatic dust detector or liquify in this release.
 
