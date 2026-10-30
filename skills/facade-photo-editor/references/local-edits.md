@@ -1,5 +1,10 @@
 # Local edits with fewer commands
 
+When available, [target choices](target-choices.md) let you select/refine regions
+and existing masks by ID, compare the same coverage across revisions, then save
+a chosen mask for ordinary edits. The tool owns coordinate conversion. Geometric
+tiles are useful for inspection and measurements; they are not object boundaries.
+
 Coordinates are normalized to the oriented original: [0,0] top left, [1,1] bottom right. Brush radius is a fraction of the image short edge. A single point paints a soft circle; a short list paints a stroke. It does not identify an object. Use existing procedural/raster masks for boundaries that cannot be represented honestly by soft coverage.
 
 For an object boundary, `facade_segment` is another optional mask producer. Discover

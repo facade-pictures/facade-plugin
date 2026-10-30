@@ -1,6 +1,6 @@
 {
   "name": "facade-photo-editor",
-  "version": "0.3.20",
+  "version": "0.3.21",
   "description": "Shared photographic skills and thin host packaging for the separate local Façade backend.",
   "author": {
     "name": "Façade"

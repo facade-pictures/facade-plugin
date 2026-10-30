@@ -58,6 +58,11 @@ Examples are conditional:
 
 ## Inspect once, apply a batch, review together
 
+When advertised, [target choices](target-choices.md) can supply exact frozen
+component support before editing. Select shown IDs rather than transcribing
+coordinates. Experimental red-component discovery also finds skin/lips/objects;
+reject unsuitable support. The tool does not certify that all eyes were found.
+
 Read `facade_capabilities(path="topics/retouch")` or `facade_capabilities(path="topics/geometry")` when you need that stage's exact schema. Clone/heal rounds and geometry are document stages in `patch`; the optional `wire_repair` operation below uses `upsertEdits`. Reuse a schema already available in context.
 
 `facade_inspect(project, revisions, regions)` accepts 1..12 regions `{id, box:[left,top,right,bottom]}` in native oriented-source pixels. It returns one contact sheet per revision and a `frame` for each region. These views show the photographic grade and retouch **before geometry**. Labels identify each crop; points are normalized within that crop, never relative to the contact sheet.

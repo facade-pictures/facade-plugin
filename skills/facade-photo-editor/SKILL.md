@@ -109,6 +109,12 @@ Generative patches are **off by default**. Read fresh `facade_capabilities(path=
 
 ## Edit and inspect
 
+For precise local work, prefer choosing shown target IDs over estimating pixel
+coordinates when `topics/targets` is advertised. [Target choices](references/target-choices.md)
+cover region refinement, saved masks, computed before/after measurements and
+experimental component proposals. Use them for a concrete localization question,
+not as a mandatory pass over every photograph. Decline unsuitable proposals.
+
 When asked to investigate repetitive work or resource use, `facade_activity(project=...)`
 reports locally recorded crop repetitions, similar edit attempts and recipe returns
 with revision/event evidence. Collection is opt-in (`facade-editor activity enable`);
