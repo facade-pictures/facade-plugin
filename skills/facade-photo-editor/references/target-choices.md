@@ -8,6 +8,10 @@ pass. Do not load the complete catalog to use them.
 `facade_targets(project, revision, kind="regions")` shows a numbered 3x3 grid.
 Choose a displayed ID. Copy returned `use.refine`, replacing the example ID with
 your choice, to subdivide that region; `action="inspect"` shows it without marks.
+Use `within_many:[{set_id,id},...]` to refine up to three regions in one call.
+For inspect/compare, `selections:[{set_id,id},...]` accepts up to six choices
+across sets in one call; omit single-set selectors. Batch independent questions
+when they are already known. The default 3x3 selection is unchanged.
 No coordinate transcription is needed. A region is a rectangle, not a detected
 object. Use only as much refinement as the actual task requires.
 
