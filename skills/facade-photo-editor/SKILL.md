@@ -5,6 +5,16 @@ description: Use Façade / Facade / Фасад to edit photographs, polish color
 
 Use `facade_*` MCP tools (host prefixes vary). Façade executes photographic edits; you choose and judge them. Mutations persist the source, recipes, brief and decisions outside this chat. Prefer direct MCP images. Missing tools mean an installation/connection problem, not a reason to start another agent loop.
 
+## Tool lookup
+
+For deferred host tools, load only the definitions needed for the next action.
+If a tool name is already known, resolve that exact name (allowing its host prefix)
+without listing the catalog. Otherwise inspect names only, then load the selected
+definitions. Do not print all Façade tools with their descriptions or schemas;
+do not reload definitions already in context. This host lookup is separate from
+`facade_capabilities`: use that tool's existing narrow operation/topic/request
+discovery for missing editing contracts. The photographic workflow is unchanged.
+
 ## Getting started: explain tasks, not tools
 
 For “What can you do with Façade?”, “How do I start?” or an equivalent question,
