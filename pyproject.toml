@@ -1,6 +1,6 @@
 [project]
 name = "facade-agent-plugin"
-version = "0.3.23"
+version = "0.3.24"
 description = "Thin agent plugin packaging and shared photographic skills for Façade"
 readme = "README.md"
 license = "MIT"
