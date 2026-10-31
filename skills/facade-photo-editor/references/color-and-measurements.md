@@ -108,3 +108,9 @@ Adapted principles, not transferable settings:
 [Adobe color sampling](https://helpx.adobe.com/photoshop/desktop/adjust-color/selective-color-adjustments/view-pixel-color-values-in-an-image.html),
 [Adobe reference points](https://helpx.adobe.com/photoshop/desktop/adjust-color/color-corrections/adjust-color-tone-levels-curves-eyedroppers.html),
 [darktable sampling spaces](https://docs.darktable.org/usermanual/4.6/en/module-reference/utility-modules/darkroom/global-color-picker/).
+
+For the finished-candidate checkpoint, `measurement.output.summary` provides
+mean Oklab lightness, L p90−p10 tonal spread, mean chroma and display near-black/
+near-white percentages using the same weighted samples. These are descriptive,
+not quality thresholds. See [visual acceptance](visual-acceptance.md) for concrete
+calls, baseline/revision handling and pre-geometry/pre-delivery limitations.

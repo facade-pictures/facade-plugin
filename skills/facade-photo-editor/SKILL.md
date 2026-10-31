@@ -49,7 +49,7 @@ anything merely by explaining it.
 
 For editing state alongside a folder of photos, read [folder projects](references/folder-projects.md). Use `facade_folder` to initialize it, then `facade_gallery_open` for a complete interactive source gallery when the host supports it; follow the host presentation instructions. Navigation runs locally, without model calls. Use `facade_gallery` for an explicitly requested static contact sheet or a host without interactive display. Pass `folder` to create/list; the host workspace may contain several such folders.
 
-Create a new photo with `facade_create(source, name, brief)`. Resume its existing project for follow-ups; use `facade_projects` then `facade_state` when the path is unknown, clarifying ambiguous matches. View the accepted image before editing. `state(revision=...)` retrieves that plan; full history is rarely needed. Saved state survives chats; conversation history is not automatically recovered.
+Create a new photo with `facade_create(source, name, brief)`. Resume its existing project for follow-ups; use `facade_projects` then `facade_state` when the path is unknown, clarifying ambiguous matches. View the accepted image before editing. Before the first edit, freeze the actual task-start revision and verbatim request as required by [visual acceptance](references/visual-acceptance.md). `state(revision=...)` retrieves that plan; full history is rarely needed. Saved state survives chats; conversation history is not automatically recovered.
 
 For “remember that photo?” or “do this like last time”, read [previous edits](references/previous-edits.md). Saved projects can supply both an actual result and its recipe without a configured reference collection.
 
@@ -127,7 +127,7 @@ Reuse a returned `requestContract` for the fields it covers; focused operation r
 
 Use stable edit IDs: `adjustEdits` merges named top-level parameters (nested values replace); `upsertEdits` replaces a complete edit. Omitted edits survive. Save follow-up intent in `brief` and select `base_revision` explicitly when refining a candidate. See [local edits](references/local-edits.md) for coverage, optional on-demand SAM masks and patch examples; soft brushes do not identify objects.
 
-Batch related work. Use `facade_variants` for a meaningful uncertainty, with up to two alternatives from the same base; do not generate variants or a critic-agent loop routinely. Inspect actual returned images: whole-frame intent first, then relevant details at a useful scale. Up to two `crops` accompany edit/variants/view; inspect mask overlays when coverage is uncertain. Measurements and successful execution do not establish quality.
+Batch related work. Use `facade_variants` for a meaningful uncertainty, with up to two alternatives from the same base; do not generate variants routinely. The bounded visual acceptance checkpoint below is mandatory for a finished edit. Inspect actual returned images: whole-frame intent first, then relevant details at a useful scale. Up to two `crops` accompany edit/variants/view; inspect mask overlays when coverage is uncertain. Measurements and successful execution do not establish quality.
 
 Edit/variants compare against the actual `base_revision` by default. When that base is already visible and an adjacent comparison is unnecessary, use `preview="candidate"` to return only the new full frames and requested crops. Reuse an available image of the same revision, crop, scale and delivery instead of requesting it again. Reopen it when a concrete unresolved question needs comparison or the image was lost to truncation/compaction. Review each new result and the regions its changes affect; a global edit can affect every crop. Candidate-only does not suppress explicit retouch or artifact review.
 
@@ -140,6 +140,10 @@ If a call was interrupted, reopen state to find whether the candidate committed 
 Recheck any named defect at the same framing and scale after repair. If only paths are returned, open the previews; if images cannot be displayed, disclose the limit and do not claim visual approval.
 
 For side-by-side presentation, use `facade_view(layout="comparison", revisions=["original", 1, 2], labels=["Original", "A", "B"], long_edge=1536)`. Optional `crops` add matching detail rows to the same sheet. Columns follow the requested order, with a common scale per row. The complete sheet is bounded by `long_edge`; use ordinary view for larger details. Coordinates remain output pixels, not sheet pixels; changed geometry is not registered automatically.
+
+## Visual acceptance before finishing
+
+After the first finished visual candidate, follow [visual acceptance](references/visual-acceptance.md): actually view fixed before and candidate against the verbatim request and constraints. Use an existing clean host reviewer context if available, otherwise explicit self-review. Accept ends editing; revise permits only one targeted correction and one re-review including the preserved first candidate; uncertain or reviewer failure stops without acceptance. This checks sufficiency of the requested effect as well as regressions, not merely successful operations.
 
 ## Continue in an external editor
 
@@ -163,7 +167,7 @@ For a requested delivery size, output sharpening or final-size grain, read [outp
 
 For CMYK or a printer ICC, read [print output](references/print-output.md): register the supplied profile, inspect a soft proof, then export with identical print settings. RGB masters remain editable.
 
-After visual review, `facade_finish` accepts and exports; `facade_decide` accepts without export, rejects or restores; `facade_export` exports accepted work. Use the latest returned `version`; reopen/rebase after stale errors. After two unhelpful revisions, preserve the best accepted result and report the remaining gap. Agent acceptance is not user approval.
+Only after an accept verdict from the visual acceptance checkpoint, `facade_finish` accepts and exports; `facade_decide` accepts without export, rejects or restores; `facade_export` exports accepted work. Use the latest returned `version`; reopen/rebase after stale errors. The checkpoint allows at most one corrective iteration; preserve unfinished candidates and report any remaining gap without accepting them. Agent acceptance is not user approval.
 
 In normal edit/finish comments, briefly name the visible subject and resulting treatment so the project can be found later. Record explicit user feedback faithfully; do not invent approval or general taste preferences. This needs no separate captioning pass.
 
