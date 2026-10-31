@@ -11,14 +11,20 @@ For an object boundary, `facade_segment` is another optional mask producer. Disc
 `facade_capabilities(path="requests/segment")`; supply a stable `mask_id`, include/
 exclude points and an optional box in oriented **uncropped source** coordinates,
 plus `expected_version`, `base_revision` and a comment. Use an original view for
-placement, not a cropped/warped output. SAM runs locally only when configured; it
+placement, not a cropped/warped output. Choose `engine="sam"` (default) for prompted
+SAM; `vision_foreground` on macOS selects detected foreground instances by include
+points, with exclude points rejecting conflicting instances. Vision supports only
+the full-source box: it cannot discover an arbitrary object from a box or refine
+an instance with clicks. `vision_person` takes no points and proposes coverage of
+ALL detected people. It may miss people; it is not a complete scene inventory.
+Vision runs directly through the system framework via PyObjC. SAM runs locally only when configured; it
 never downloads during editing and never silently substitutes a rough contour.
 If unavailable, use an appropriate existing mask method and state its limits.
 
 Inspect the returned overlay (green include/red exclude clicks) and grayscale
 coverage. Continue with the returned candidate as `base_revision` to refine the
 same mask or apply an edit referencing its ID. The candidate is not automatically
-accepted. Saved raster masks render without SAM. Use points for visible separate
+accepted. Saved raster masks render without either backend. Use points for visible separate
 parts; do not assume fine hair, glass or a narrow edge is alpha-matted. Native
 overlays and ordinary raster refinement remain available through view/edit.
 
